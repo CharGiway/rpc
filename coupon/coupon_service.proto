@@ -1,0 +1,25 @@
+syntax = "proto3";
+package coupon_service;
+option go_package = "github.com/CharGiway/coupon_service;coupon_service";
+import "google/api/annotations.proto";
+import "google/protobuf/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+service CouponService{
+  rpc Echo(CommonRequest) returns (CommonResponse) {
+    option (google.api.http) = {
+      post : "/echo"
+      body : "*"
+    };
+  }
+};
+
+message CommonRequest {
+  string msg = 1; //信息
+}
+
+message CommonResponse {
+  int32 code = 1; //错误码。没有错误的时候请赋值0
+  string msg = 2; //错误信息，没有错误的时候请保持为空，不要返回"success"
+  string id = 3; // id，如果函数返回带了id可以用这个字段，但如果返回体较复杂请声明新的message
+}
